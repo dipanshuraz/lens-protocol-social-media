@@ -2,6 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 import { usePostContext } from '@/context/PostContext';
+import BlogPost from '@/app/components/Blog';
+import Loader from '@/app/components/Loader';
 
 export default function Publication() {
 
@@ -12,19 +14,15 @@ export default function Publication() {
   const post = getSinglePost(handle);
   console.log(post, 'post')
 
-  if (!post) return null
+  if (!post) return (
+    <div className='flex h-screen w-screen justify-center items-center'>
+        <Loader />
+    </div>
+  );
 
   return (
     <div className='pt-20'>
-    <div className='flex flex-col justify-center items-center'>
-      {post?.media && post?.media[0]?.original?.uri && <img
-        className='w-64 rounded-full'
-        src={post?.media[0]?.original?.uri}
-      />
-      }
-      <p className='text-4xl mt-8 mb-8'>{post?.metadata?.name}</p>
-      <p className='text-center text-xl font-bold mt-2 mb-2 w-1/2'>{post?.metadata?.content}</p>
+      <BlogPost post={post}/>
     </div>
-  </div>
   )
 }

@@ -67,6 +67,10 @@ export const getPublications = gql`
   }
   fragment PostFields on Post {
     id
+    createdAt
+    profile {
+      ...ProfileFields
+    }
     metadata {
       ...MetadataOutputFields
     }
@@ -82,6 +86,22 @@ export const getPublications = gql`
       }
   }
 
+  fragment ProfileFields on Profile {
+    id
+    name
+    bio
+    metadata
+    isDefault
+    handle
+    picture {
+      ... on MediaSet {
+        original {
+          ...MediaFields
+        }
+      }
+    }
+  }
+    
   fragment MediaFields on Media {
     url
     mimeType
