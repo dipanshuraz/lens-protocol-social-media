@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
     title: name,
     description : bio,
     openGraph: {
-        images: ['https://lens-protocol-social-media.vercel.app/og'],
+        images: [`https://lens-protocol-social-media.vercel.app/og?title=${name}`],
       },  
   }
 }
