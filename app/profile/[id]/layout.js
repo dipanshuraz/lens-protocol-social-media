@@ -13,15 +13,21 @@ export async function generateMetadata({ params }) {
   })
 
   console.log(profile, 'returnedProfile ---- >')
-  const { name = '' , bio, picture } = profile
-//   const pic = picture?.original?.url || ''
+
+  const {
+    data: {
+      profile: { name = "", bio, picture },
+    },
+  } = profile;
+
+  const pic = picture?.original?.url || ''
 
   return {
     title: name,
     description : bio,
-    // openGraph: {
-    //     images: [pic],
-    //   },  
+    openGraph: {
+        images: [pic],
+      },  
   }
 }
 
