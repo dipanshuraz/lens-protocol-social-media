@@ -22,20 +22,15 @@ export async function generateMetadata({ params }) {
 
   const pic = picture?.original?.url || ''
 
+    // check if 500 default time or show error   
   return {
     title: name,
     description : bio,
     openGraph: {
-        images: [pic],
+        images: ['https://lens-protocol-social-media.vercel.app/og'],
       },  
   }
 }
-
-// either Static metadata
-// export const metadata = {
-//     title: 'JOSH',
-//   }
-  
 
 const layout = ({ children }) => {
   return (
