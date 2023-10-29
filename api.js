@@ -108,39 +108,47 @@ export const getPublications = gql`
   }
 `
 
-
 export const getPublication = gql`
-query Publication($handle: Handle!) {
-    publication(request: {
-      publicationId: $handle
-    }) {
-     __typename 
-      ... on Post {
-        ...PostFields
-      }
+query Publication($internalPublicationId: InternalPublicationId!) {
+  publication(request: {
+    internalPublicationId: $internalPublicationId
+  }) {
+   __typename 
+    ... on Post {
+      ...PostFields
     }
   }
-  
-  fragment PostFields on Post {
-    id
-    metadata {
-      ...MetadataOutputFields
-    }
-    createdAt
-  }
-  
-  fragment MetadataOutputFields on MetadataOutput {
-    name
-    description
-    content
-    media {
-      original {
-        ...MediaFields
-      }
+}
+
+fragment MediaFields on Media {
+  url
+  mimeType
+}
+
+fragment MetadataOutputFields on MetadataOutput {
+  name
+  description
+  content
+  media {
+    original {
+      ...MediaFields
     }
   }
-  fragment MediaFields on Media {
-    url
-    mimeType
-  } 
+  attributes {
+    displayType
+    traitType
+    value
+  }
+}
+
+fragment PostFields on Post {
+  id
+  metadata {
+    ...MetadataOutputFields
+  }
+  createdAt
+  appId
+  hidden
+  hasCollectedByMe
+}
 `

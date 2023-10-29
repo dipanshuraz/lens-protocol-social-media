@@ -10,7 +10,7 @@ import Loader from '@/app/components/Loader';
 
 export default function Profile() {
 
-    const { setPosts } = usePostContext();
+  const { setPosts } = usePostContext();
 
   /* create initial state to hold user profile and array of publications */
   const [profile, setProfile] = useState({})

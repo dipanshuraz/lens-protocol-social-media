@@ -3,8 +3,7 @@ import { Metadata } from 'next'
 import { client, getProfile } from '@/api'
  
 export async function generateMetadata({ params }) {
-  
-  console.log(params, 'params ---------')
+
   const handle = params.id
 
   const profile = await client.query({
@@ -16,19 +15,27 @@ export async function generateMetadata({ params }) {
 
   const {
     data: {
-      profile: { name = "", bio, picture },
+      profile: { name = "", bio, picture, id },
     },
   } = profile;
 
-  const pic = picture?.original?.url || ''
-
-    // check if 500 default time or show error   
+  const metaImage = `https://lens-protocol-social-media.vercel.app/og?title=${name}`
+    
   return {
     title: name,
     description : bio,
     openGraph: {
-        images: [`https://lens-protocol-social-media.vercel.app/og?title=${name}`],
+        images: [metaImage],
       },  
+    twitter: {
+      card: metaImage,
+      title: name,
+      description: bio,
+      siteId: '1467726470533754880',
+      creator: `@${handle}`,
+      creatorId: id,
+      images: [metaImage],
+    },
   }
 }
 
