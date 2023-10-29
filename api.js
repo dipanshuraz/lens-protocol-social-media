@@ -109,13 +109,13 @@ export const getPublications = gql`
 `
 
 export const getPublication = gql`
+
 query Publication($internalPublicationId: InternalPublicationId!) {
-  publication(request: {
-    internalPublicationId: $internalPublicationId
-  }) {
+  publication(request: { publicationId: $internalPublicationId }) {
    __typename 
     ... on Post {
       ...PostFields
+      __typename
     }
   }
 }
@@ -149,6 +149,30 @@ fragment PostFields on Post {
   createdAt
   appId
   hidden
-  hasCollectedByMe
+  hasCollectedByMe,
+  profile {
+    ...ProfileFields
+  }
+}
+
+fragment ProfileFields on Profile {
+  id
+  name
+  bio
+  metadata
+  isDefault
+  handle
+  picture {
+    ... on MediaSet {
+      original {
+        ...MediaFields
+      }
+    }
+  }
+}
+  
+fragment MediaFields on Media {
+  url
+  mimeType
 }
 `

@@ -1,38 +1,42 @@
 'use client'
 
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { usePostContext } from '@/context/PostContext';
 import BlogPost from '@/app/components/Blog';
 import Loader from '@/app/components/Loader';
 import { client, getPublication } from '@/api'
-import { useEffect } from 'react';
 
 export default function Publication() {
-
   const pathName = usePathname()
-  const handle = pathName?.split('/')[2]
-  
-  const { getSinglePost } = usePostContext();
-  const post = getSinglePost(handle);
-  // console.log(post, 'post')
+
+  const [post, setPost] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const fetchPost = async () => {
 
-      const pubs = await client.query({
-        query: getPublication,
-        variables: {
-          internalPublicationId: "0x01-0x01"
+    
+      const fetchPost = async () => {
+        try {
+          let handle = pathName?.split('/')[2]
+          const response = await client.query({
+            query: getPublication,
+            variables: {
+              internalPublicationId: handle
+            }
+          })
+          
+          setIsLoading(false)
+          setPost(response?.data?.publication)
+        } catch (error) {
+          setIsLoading(false)
         }
-      })
-
-      console.log(pubs, 'pubs ---- ')
     }
 
     fetchPost()
+
   }, [])  
 
-  if (!post) return (
+  if (!post || isLoading) return (
     <div className='flex h-screen w-screen justify-center items-center'>
         <Loader />
     </div>

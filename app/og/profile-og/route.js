@@ -1,21 +1,24 @@
+import ProfileCard from '@/app/components/ProfileCard';
 import { ImageResponse } from 'next/server';
-// App router includes @vercel/og.
-// No need to install it.
- 
-export const runtime = 'edge';
- 
+import { Base64 } from 'js-base64';
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
- 
-    const hasTitle = searchParams.has('title');
-    const title = hasTitle
-      ? searchParams.get('title')?.slice(0, 100)
-      : 'My default title';
- 
+
+    let data = searchParams.get('data')
+    data = data.replace(/-/g, '+').replace(/_/g, '/');
+
+    // Decode
+    const decodedJsonString = Base64.decode(data, { utf8: true });
+    const dataObject = JSON.parse(decodedJsonString);
+    console.log(dataObject, 'dataObject')
+
+    const { image, handle, bio, name } = dataObject
+    const truncatedBio = bio.length > 100 ? `${bio.slice(0, 100)}...` : bio;
+
     return new ImageResponse(
-      (
-        <div
+      <div
           style={{
             backgroundColor: 'black',
             backgroundSize: '150px 150px',
@@ -40,14 +43,14 @@ export async function GET(request) {
             <img
               alt="Vercel"
               height={200}
-              src="data:image/svg+xml,%3Csvg width='116' height='100' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M57.5 0L115 100H0L57.5 0z' /%3E%3C/svg%3E"
-              style={{ margin: '0 30px' }}
+              src={image}
+              style={{ margin: '0 30px', borderRadius : '50%' }}
               width={232}
             />
           </div>
           <div
             style={{
-              fontSize: 60,
+              fontSize: 50,
               fontStyle: 'normal',
               letterSpacing: '-0.025em',
               color: 'white',
@@ -57,10 +60,14 @@ export async function GET(request) {
               whiteSpace: 'pre-wrap',
             }}
           >
-            {title}
+            {name}
           </div>
-        </div>
-      ),
+          <div style={{
+            color : 'white'
+          }}>
+            {truncatedBio}
+          </div>
+        </div>,
       {
         width: 1200,
         height: 630,

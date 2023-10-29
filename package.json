@@ -10,15 +10,21 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "graphql": "^16.8.1",
+    "hls.js": "^1.4.12",
+    "js-base64": "^3.7.5",
     "next": "13.5.6",
     "react": "^18",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18",
-    "react-markdown": "^9.0.0",
-    "ua-parser-js": "^1.0.36"
+    "react-markdown": "^9.0.0"
   },
   "devDependencies": {
+    "@types/node": "20.8.9",
+    "@types/react": "18.2.33",
     "autoprefixer": "^10",
     "postcss": "^8",
     "tailwindcss": "^3"
