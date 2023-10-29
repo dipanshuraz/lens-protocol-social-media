@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { client, exploreProfiles } from '../api';
 import Loader from './components/Loader';
 import ProfileCard from './components/ProfileCard';
@@ -39,10 +38,8 @@ export default function Home() {
   }
 
   return (
-    <div className='pt-20'>
+    <div className='pt-6'>
       <div className='flex flex-col justify-center items-center'>
-        <h1 className='text-4xl mb-6 font-bold'>Hello ORB Lens 🌿</h1>
-
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
             <span className="block sm:inline">{error}</span>

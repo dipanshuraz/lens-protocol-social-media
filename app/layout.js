@@ -1,17 +1,17 @@
-import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import './globals.css'
 import Prompt from './components/Prompt'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Prompt message={"HELLo"} />
-          {children}
+        <Link href={`/`}>
+          <h1 className='text-4xl mt-10 font-bold text-center'>ORB Lens 🌿</h1>
+        </Link>
+        {children}
       </body>
     </html>
   )

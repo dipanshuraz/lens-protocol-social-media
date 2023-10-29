@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -15,7 +16,7 @@ const ProfileCard = ({
             <div className="flex flex-wrap justify-center">
               <div className="w-full px-4 flex justify-center relative">
                 <div className="absolute -top-20">
-                  <img className="shadow-xl rounded-full w-48 h-48"  alt="Profile" src={image}/>
+                  <Image className="shadow-xl rounded-full w-48 h-48"  alt="Profile" src={image} width={300} height={300}/>
                 </div>
               </div>
             </div>

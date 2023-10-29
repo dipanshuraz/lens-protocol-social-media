@@ -43,7 +43,7 @@ export default function Publication() {
   );
 
   return (
-    <div className='pt-20'>
+    <div className='pt-4'>
       <BlogPost post={post}/>
     </div>
   )

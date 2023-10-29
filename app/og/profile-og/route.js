@@ -1,4 +1,3 @@
-import ProfileCard from '@/app/components/ProfileCard';
 import { ImageResponse } from 'next/server';
 import { Base64 } from 'js-base64';
 

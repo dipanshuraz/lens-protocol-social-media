@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import Hls from 'hls.js';
 import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
+import ipfsToHttp from '../utils/ipfsToHttp';
 
 function BlogPost({ post }) {
+    
     const description = post?.metadata?.description;
     const content = post?.metadata?.content;
     
@@ -28,7 +31,7 @@ function BlogPost({ post }) {
     return (
         <div className="bg-gray-700 rounded-lg shadow-md m-4 md:m-16 p-4 md:p-8 min-h-screen">
             {/* Render image or video based on MIME type */}
-            {mediaType === 'image/png' && <img src={mediaContent} alt="Media Content" className="w-full object-cover rounded-t-md" />}
+            {mediaType === 'image/png' && <Image src={ipfsToHttp(mediaContent)} alt="Media Content" className="w-full object-cover rounded-t-md" height={1600} width={900} />}
             {mediaType === 'video/quicktime' && (
                 <video controls ref={videoRef} className="w-full lg:w-6/12">
                     Your browser does not support the video tag.
@@ -43,7 +46,7 @@ function BlogPost({ post }) {
 
             <div className='flex justify-start items-center p-4'>
                 Created By 
-                <img src={profileImage} alt="user image" className="h-8 w-8 object-cover mx-2 rounded-full" />
+                <Image src={ipfsToHttp(profileImage)} alt="user image" className="h-8 w-8 object-cover mx-2 rounded-full" width={100} height={100} />
                 {profile}
             </div>
         </div>
