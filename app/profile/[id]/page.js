@@ -58,7 +58,7 @@ export default function Profile() {
   console.log(profile, 'profile')
 
   return (
-    <div className=''>
+    <div className='bg-black'>
      <div className="w-11/12 md:w-10/12 mx-auto rounded-xl shadow-md overflow-hidden">
         {
           <>
