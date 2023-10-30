@@ -19,15 +19,17 @@ export async function generateMetadata({ params }) {
     const DataObject = {
       image: profile.picture?.uri || profile.picture.original.url,
       handle: profile.handle,
-      bio: profile.bio,
-      name: profile.name,
-      id: profile.id
+      bio: content,
+      name: name,
+      id: id
     };
 
+    console.log(DataObject, 'DataObject')
     // Encode
     const jsonString = JSON.stringify(DataObject);
     let base64String = Base64.encode(jsonString);
     base64String = base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    console.log(base64String, 'base64String')
 
     const metaImage = `https://lens-protocol-social-media.vercel.app/og/profile-og?data=${base64String}`;
     
